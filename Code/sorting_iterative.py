@@ -38,6 +38,7 @@ def selection_sort(items):
     unsorted item, and repeating until all items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
+    # ----- Ali Method -----
     # Set counter
     counter = 0
     while counter < len(items):
@@ -46,17 +47,27 @@ def selection_sort(items):
         # Set index of remaining items
         current_lowest_index = counter
         # Iterate through remaining items
-        for remaining_item in len([counter:len(items)]):
+        for remaining_item in items[counter:]:
             # See if item is lower than current lowest
-            if remaining_item < current_lowest:
+            # print(f"Remaining item: {remaining_item}")
+            if current_lowest_item > remaining_item:
                 # Set current lowest value
                 current_lowest_item = remaining_item
                 # Set current lowest index
-                current_lowest_index = items.index(remaining_item)
+                current_lowest_index = items[counter:].index(
+                    remaining_item) + counter
         # Swap index at counter with current lowest
         items[counter], items[current_lowest_index] = items[current_lowest_index], items[counter]
         # Increment counter
         counter += 1
+
+    # # ----- Alternative method ----- https://github.com/jshams/CS-2.1-Trees-Sorting/blob/master/Code/sorting_iterative.py
+    # for index in range(len(items)):
+    #     # Find the minimum remaining index (be sure to add index)
+    #     smallest_remaining_index = items[index:].index(
+    #         min(items[index:])) + index
+    #     # Swap
+    #     items[index], items[smallest_remaining_index] = items[smallest_remaining_index], items[index]
 
 
 def insertion_sort(items):
@@ -67,3 +78,7 @@ def insertion_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
+
+
+# sample = [2, 1]
+# selection_sort(sample)
