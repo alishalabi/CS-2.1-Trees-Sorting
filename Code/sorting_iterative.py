@@ -8,7 +8,7 @@ def is_sorted(items):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # Check that all adjacent items are in order, return early if so
     # Iterate through each item in array, omit final item
-    for index in len(range(items) - 1):
+    for index in range(len(items) - 1):
         # Check if item is greater than or equal to following item (ie not in order)
         if items[index] >= items[index + 1]:
             # Early exit
@@ -23,7 +23,13 @@ def bubble_sort(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Repeat until all items are in sorted order
-    # TODO: Swap adjacent items that are out of order
+    # Iterate through each index in array
+    for current_index in range(len(items) - 1):
+        # Sub-iterate through each index up until target index
+        for index in range(current_index):
+            if items[index] > items[index + 1]:
+
+                # TODO: Swap adjacent items that are out of order
 
 
 def selection_sort(items):
