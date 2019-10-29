@@ -4,11 +4,31 @@
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until one list is empty
-    # TODO: Find minimum item in both lists and append it to new list
-    # TODO: Append remaining items in non-empty list to new list
+    Running time: O(n) in all conditions (where n is total items in both lists)
+    Memory usage: O(1)average - some sorted_output resizing"""
+    sorted_output = []
+    # While there are still items in both lists
+    while len(items1) > 0 and len(items2) > 0:
+        # If first item in items1 is less or equal to first item in items2
+        if items1[0] <= items2[0]:
+            # Add first item in items 1 to sorted output
+            sorted_output.append(items1[0])
+            # Remove first item from items 2
+            items1.pop(0)
+        # If not, add item from item2 to sorted array
+        else:
+            sorted_output.append(items2[0])
+            # Remove first item from items2
+            items2.pop(0)
+    # One of the lists is now empty, append every item in remaining list
+    while len(items1) > 0:
+        sorted_output.append(items1[0])
+        items1.pop(0)
+    while len(items2) > 0:
+        sorted_output.append(items2[0])
+        items2.pop(0)
+
+    return sorted_output
 
 
 def split_sort_merge(items):
@@ -57,3 +77,9 @@ def quick_sort(items, low=None, high=None):
     # TODO: Check if list or range is so small it's already sorted (base case)
     # TODO: Partition items in-place around a pivot and get index of pivot
     # TODO: Sort each sublist range by recursively calling quick sort
+
+
+array1 = [0, 1, 5, 9, 10]
+array2 = [2, 5, 6, 7, 8]
+
+print(merge(array1, array2))
