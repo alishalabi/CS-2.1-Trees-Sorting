@@ -78,6 +78,7 @@ def insertion_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
+    counter = 0
 
 
 # sample = [2, 1]
