@@ -41,12 +41,9 @@ def split_sort_merge(items):
     items1 = items[:len(items) // 2]
     items2 = items[len(items) // 2:]
     # Sort each half using any other sorting algorithm
-    items1 = items1.sort()
-    items2 = items2.sort()
+    items1.sort()
+    items2.sort()
     # Merge sorted halves into one list in sorted order
-    # Option 1:
-    # merge(items1, items2)
-    # Option 2:
     sorted_output = []
     # While there are still items in both lists
     while len(items1) > 0 and len(items2) > 0:
@@ -147,4 +144,4 @@ array2 = [2, 5, 6, 7, 8]
 large_array = [9, 10, 4, 6, 8, 9, 40, 84, 1]
 
 # print(merge(array1, array2))
-print(split_sort_merge(large_array))
+print((split_sort_merge(large_array)))
