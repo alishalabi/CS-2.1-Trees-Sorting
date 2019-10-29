@@ -37,9 +37,39 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half using any other sorting algorithm
-    # TODO: Merge sorted halves into one list in sorted order
+    # Split items list into approximately equal halves
+    items1 = items[:len(items) // 2]
+    items2 = items[len(items) // 2:]
+    # Sort each half using any other sorting algorithm
+    items1 = items1.sort()
+    items2 = items2.sort()
+    # Merge sorted halves into one list in sorted order
+    # Option 1:
+    # merge(items1, items2)
+    # Option 2:
+    sorted_output = []
+    # While there are still items in both lists
+    while len(items1) > 0 and len(items2) > 0:
+        # If first item in items1 is less or equal to first item in items2
+        if items1[0] <= items2[0]:
+            # Add first item in items 1 to sorted output
+            sorted_output.append(items1[0])
+            # Remove first item from items 2
+            items1.pop(0)
+        # If not, add item from item2 to sorted array
+        else:
+            sorted_output.append(items2[0])
+            # Remove first item from items2
+            items2.pop(0)
+    # One of the lists is now empty, append every item in remaining list
+    while len(items1) > 0:
+        sorted_output.append(items1[0])
+        items1.pop(0)
+    while len(items2) > 0:
+        sorted_output.append(items2[0])
+        items2.pop(0)
+
+    return sorted_output
 
 
 def merge_sort(items):
@@ -47,10 +77,43 @@ def merge_sort(items):
     sorting each recursively, and merging results into a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check if list is so small it's already sorted (base case)
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half by recursively calling merge sort
-    # TODO: Merge sorted halves into one list in sorted order
+    # Check if list is so small it's already sorted (base case)
+    if len(items) < 2:
+        return
+    # Split items list into approximately equal halves
+    items1 = items[:len(items) // 2]
+    items2 = items[len(items) // 2:]
+    # Sort each half using any other sorting algorithm
+    # Sort each half by recursively calling merge sort
+    merge_sort(items1)
+    merge_sort(item2)
+    # Merge sorted halves into one list in sorted order
+    # Option 1:
+    # merge(items1, items2)
+    # Option 2:
+    sorted_output = []
+    # While there are still items in both lists
+    while len(items1) > 0 and len(items2) > 0:
+        # If first item in items1 is less or equal to first item in items2
+        if items1[0] <= items2[0]:
+            # Add first item in items 1 to sorted output
+            sorted_output.append(items1[0])
+            # Remove first item from items 2
+            items1.pop(0)
+        # If not, add item from item2 to sorted array
+        else:
+            sorted_output.append(items2[0])
+            # Remove first item from items2
+            items2.pop(0)
+    # One of the lists is now empty, append every item in remaining list
+    while len(items1) > 0:
+        sorted_output.append(items1[0])
+        items1.pop(0)
+    while len(items2) > 0:
+        sorted_output.append(items2[0])
+        items2.pop(0)
+
+    return sorted_output
 
 
 def partition(items, low, high):
@@ -81,5 +144,7 @@ def quick_sort(items, low=None, high=None):
 
 array1 = [0, 1, 5, 9, 10]
 array2 = [2, 5, 6, 7, 8]
+large_array = [9, 10, 4, 6, 8, 9, 40, 84, 1]
 
-print(merge(array1, array2))
+# print(merge(array1, array2))
+print(split_sort_merge(large_array))
