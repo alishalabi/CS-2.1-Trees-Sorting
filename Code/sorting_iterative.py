@@ -5,7 +5,7 @@ def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
     Running time: Best case - O(1): first item out of order
     Running time: Worst case - O(n): all items in order
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Memory usage: O(1)"""
     # Check that all adjacent items are in order, return early if so
     # Iterate through each item in array, omit final item
     for index in range(len(items) - 1):
@@ -20,8 +20,8 @@ def is_sorted(items):
 def bubble_sort(items):
     """Sort given items by swapping adjacent items that are out of order, and
     repeating until all items are in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(n^2) in all cases
+    Memory usage: O(1)"""
     # Repeat until all items are in sorted order
     # Iterate through each index in array
     for current_index in range(len(items) - 1):
@@ -36,8 +36,8 @@ def bubble_sort(items):
 def selection_sort(items):
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(n^2) in all cases
+    Memory usage: O(1)"""
     # ----- Ali Method -----
     # Set counter
     counter = 0
@@ -73,12 +73,20 @@ def selection_sort(items):
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(n) best case, O(n^2) worst case
+    Memory usage: O(1)"""
     # TODO: Repeat until all items are in sorted order
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
-    counter = 0
+    # Start counter at 1 (avoid i-1 range issues)
+    counter = 1
+    while counter <= len(items) - 1:
+        current_sorting_index = counter
+        while items[current_sorting_index] < items[current_sorting_index - 1]:
+            items[current_sorting_index], items[current_sorting_index -
+                                                1] = items[current_sorting_index - 1], items[current_sorting_index]
+            current_sorting_index -= 1
+        counter += 1
 
 
 # sample = [2, 1]
