@@ -82,12 +82,15 @@ def insertion_sort(items):
     counter = 1
     while counter <= len(items) - 1:
         current_sorting_index = counter
-        while items[current_sorting_index] < items[current_sorting_index - 1]:
+        while items[current_sorting_index] > 1 and items[current_sorting_index] < items[current_sorting_index - 1]:
             items[current_sorting_index], items[current_sorting_index -
                                                 1] = items[current_sorting_index - 1], items[current_sorting_index]
             current_sorting_index -= 1
         counter += 1
 
 
-# sample = [2, 1]
-# selection_sort(sample)
+# sample_small_out_of_order = [2, 1]
+# sample_small_in_order = [1, 2]
+# sample_all_same = [1, 1, 1, 1, 1, 1]
+
+# selection_sort(sample_small_out_of_order)

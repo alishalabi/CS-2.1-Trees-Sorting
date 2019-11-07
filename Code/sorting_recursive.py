@@ -1,4 +1,5 @@
 #!python
+import random
 
 
 def merge(items1, items2):
@@ -35,8 +36,8 @@ def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
     a list in sorted order.
-    Running time: O(n*log(n))
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(2n*(n/2)^2)
+    Memory usage: O(1)"""
     # Split items list into approximately equal halves
     middle_index = len(items) // 2
     items1 = items[:middle_index]
@@ -56,8 +57,8 @@ def split_sort_merge(items):
 def merge_sort(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each recursively, and merging results into a list in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(n*log(n))
+    Memory usage: O(n*log(n))"""
     # Check if list is so small it's already sorted (base case)
     if len(items) < 2:
         return items
@@ -78,25 +79,56 @@ def partition(items, low, high):
     `[low...high]` by choosing a pivot (TODO: document your method here) from
     that range, moving pivot into index `p`, items less than pivot into range
     `[low...p-1]`, and items greater than pivot into range `[p+1...high]`.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Choose a pivot any way and document your method in docstring above
-    # TODO: Loop through all items in range [low...high]
-    # TODO: Move items less than pivot into front of range [low...p-1]
-    # TODO: Move items greater than pivot into back of range [p+1...high]
-    # TODO: Move pivot item into final position [p] and return index p
+    Running time: O(n)
+    Memory usage: O(n)"""
+    # Instantiate two empty arrays to store items smaller and larger than pivot
+    smaller_than_pivot = []
+    larger_than_pivot = []
+    # Find pivot: random method
+    pivot_index = random.randint(low, high)
+    pivot_item = items[pivot_index]
+    # Iterate through items (using index)
+    for index in range(low, high + 1):
+        # As long as item is not pivot
+        if items[index] != pivot_item:
+            # Append to smaller array if smaller than pivot
+            if items[index] < pivot_item:
+                smaller_than_pivot.append(items[index])
+            # Append to larger array if larger than pivot
+            else:
+                larger_than_pivot.append(items[index])
+    # Move pivot item into final position [p] and return index p
+    # Note: section not well understood, modeling off of https://github.com/lvreynoso/CS-2.1-Trees-Sorting/blob/master/Code/sorting_recursive.py
+    # Note: coming to OH to better understand (was absent week of work)
+    pivot_index = low + len(smaller_than_pivot)
+    if len(smaller_than_pivot) > 0:
+        items[low:pivot_index] = smaller_than_pivot
+    items[pivot_index] = pivot_item
+    if len(larger_than_pivot) > 0:
+        items[pivot_index + 1:high + 1] = larger_than_pivot
+    return pivot_index
 
 
 def quick_sort(items, low=None, high=None):
     """Sort given items in place by partitioning items in range `[low...high]`
     around a pivot item and recursively sorting each remaining sublist range.
-    TODO: Best case running time: ??? Why and under what conditions?
-    TODO: Worst case running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check if high and low range bounds have default values (not given)
-    # TODO: Check if list or range is so small it's already sorted (base case)
-    # TODO: Partition items in-place around a pivot and get index of pivot
-    # TODO: Sort each sublist range by recursively calling quick sort
+    Best case running time: O(nlog(n))
+    Worst case running time: O(n^2) if random partition is first or last item
+    Memory usage: O(n)"""
+    # Check if high and low range bounds have default values (not given)
+    if low == None:
+        low = 0
+    if high == None:
+        high = 0
+    # Check if list or range is so small it's already sorted (base case)
+    if low >= high:
+        return items
+    # Partition items in-place around a pivot and get index of pivot
+    pivot_index = partition(items, low, high)
+    # Sort each sublist range by recursively calling quick sort
+    quick_sort(items, low, pivot_index - 1)
+    quick_sort(items, pivot_index + 1, high)
+    return items
 
 
 array1 = [0, 1, 5, 9, 10]
