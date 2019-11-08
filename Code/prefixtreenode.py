@@ -9,7 +9,7 @@ class PrefixTreeNode:
 
     # Choose a type of data structure to store children nodes in
     # Hint: Choosing list or dict affects implementation of all child methods
-    CHILDREN_TYPE = None
+    CHILDREN_TYPE = list
 
     def __init__(self, character=None):
         """Initialize this prefix tree node with the given character value, an
@@ -23,7 +23,8 @@ class PrefixTreeNode:
 
     def is_terminal(self):
         """Return True if this prefix tree node terminates a string."""
-        # TODO: Determine if this node is terminal
+        # Determine if this node is terminal
+        return self.terminal
 
     def num_children(self):
         """Return the number of children nodes this prefix tree node has."""
