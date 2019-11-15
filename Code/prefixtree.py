@@ -35,7 +35,9 @@ class PrefixTree:
 
     def is_empty(self):
         """Return True if this prefix tree is empty (contains no strings)."""
-        # TODO
+        if self.size == 0:
+            return True
+        return False
 
     def contains(self, string):
         """Return True if this prefix tree contains the given string."""
@@ -98,7 +100,7 @@ def create_prefix_tree(strings):
         print(f'contains({string!r}): {result}')
 
     print('\nSearching for strings not in tree:')
-    prefixes = sorted(set(string[:len(string)//2] for string in strings))
+    prefixes = sorted(set(string[:len(string) // 2] for string in strings))
     for prefix in prefixes:
         if len(prefix) == 0 or prefix in strings:
             continue
@@ -127,6 +129,6 @@ if __name__ == '__main__':
     }
     # Create a prefix tree with the similar words in each tongue-twister
     for name, strings in tongue_twisters.items():
-        print('\n' + '='*80 + '\n')
+        print('\n' + '=' * 80 + '\n')
         print(f'{name} tongue-twister:')
         create_prefix_tree(strings)
