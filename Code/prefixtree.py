@@ -69,8 +69,14 @@ class PrefixTree:
         if len(string) == 0:
             return self.root, 0
         # Start with the root node
-        node = self.root
-        # TODO
+        current_node = self.root
+        depth = 0
+        for letter in string:
+            if current_node.has_child(letter) is False:
+                return None, depth
+            current_node = current_node.get_child(letter)
+            depth += 1
+        return current_node, depth
 
     def complete(self, prefix):
         """Return a list of all strings stored in this prefix tree that start
