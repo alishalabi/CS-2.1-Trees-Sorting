@@ -58,8 +58,10 @@ class PrefixTree:
             else:
                 current_node.add_child(letter, PrefixTreeNode(letter))
                 current_node = current_node.get_child(letter)
-        current_node.terminal = True
-        self.size += 1
+        # Check to make sure string has not already been added
+        if current_node.terminal is False:
+            self.size += 1
+            current_node.terminal = True
 
     def _find_node(self, string):
         """Return a tuple containing the node that terminates the given string
@@ -84,24 +86,37 @@ class PrefixTree:
         with the given prefix string."""
         # Create a list of completions in prefix tree
         completions = []
-        # Early exit 1: No strings in tree
-        if self.is_empty() is True:
-            return completions
-
-        # Early exit 2: Prefix is empty
-        # if prefix == "":
-        #     return self.strings()
+        # # Early exit 1: No strings in tree
+        # if self.is_empty() is True:
+        #     return completions
+        #
+        # # Early exit 2: Prefix is empty
+        # # if prefix == "":
+        # #     return self.strings()
+        node, _ = self._find_node(prefix)
+        if node:
+            if node.terminal:
+                completions.append(prefix)
+                self._traverse(node, prefix, completions.append)
+        return completions
 
     def strings(self):
         """Return a list of all strings stored in this prefix tree."""
         # Create a list of all strings in prefix tree
         all_strings = []
-        # TODO
+        self._traverse(self.root, "", all_strings.append)
+        return all_strings
 
     def _traverse(self, node, prefix, visit):
         """Traverse this prefix tree with recursive depth-first traversal.
         Start at the given node and visit each node with the given function."""
-        # TODO
+        # Iterate through each child of node, utilize character and children
+        # Create new prefix (old prefix + new character)
+        for child_node in node.children:
+            new_prefix = prefix + child_node.character
+            if child_node.terminal:
+                visit(new_prefix)
+            self._traverse(child_node, new_prefix, visit)
 
 
 def create_prefix_tree(strings):
@@ -137,6 +152,22 @@ def create_prefix_tree(strings):
     for prefix in prefixes:
         completions = tree.complete(prefix)
         print(f'complete({prefix!r}): {completions}')
+
+    # Custom tests from nicolai for traversal
+    print("\nTraversing tree:")
+    tree._traverse(tree.root, "", print)
+
+    # Custom tests from nicolai for _find_node
+    print('\nFinding prefixes in tree:')
+    print("Note: below should all be Nodes")
+    for prefix in prefixes:
+        findings = tree._find_node(prefix)
+        print(f'_find_node({prefix!r}): {findings}')
+    for string in sorted(set(strings)):
+        findings = tree._find_node(string)
+        print(f'_find_node({string!r}): {findings}')
+    print("Note: below should all be None")
+    print(f'_find_node({"Shells"!r}): {tree._find_node("Shells")}')
 
     print('\nRetrieving all strings:')
     retrieved_strings = tree.strings()
