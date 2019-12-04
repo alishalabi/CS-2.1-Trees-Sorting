@@ -22,15 +22,22 @@ def bubble_sort(items):
     repeating until all items are in sorted order.
     Running time: O(n^2) in all cases
     Memory usage: O(1)"""
-    # Repeat until all items are in sorted order
-    # Iterate through each index in array
-    for current_index in range(len(items) - 1):
-        # Sub-iterate through each index up until target index
-        for index in range(current_index):
-            # If item is out of order
-            if items[index] > items[index + 1]:
-                # Swap adjacent items that are out of order
-                items[index], items[index + 1] = items[index + 1], items[index]
+    # # Repeat until all items are in sorted order
+    # # Iterate through each index in array
+    # for current_index in range(len(items) - 1):
+    #     print(items)
+    #     # Sub-iterate through each index up until target index
+    #     for index in range(current_index):
+    #         # If item is out of order
+    #         if items[index] > items[index + 1]:
+    #             # Swap adjacent items that are out of order
+    #             items[index], items[index + 1] = items[index + 1], items[index]
+    # Collborated with Nicolai
+    items_range = len(items)
+    for i in reversed(range(items_range)):
+        for j in range(0, i):
+            if items[j] > items[j + 1]:
+                items[j], items[j + 1] = items[j + 1], items[j]
 
 
 def selection_sort(items):

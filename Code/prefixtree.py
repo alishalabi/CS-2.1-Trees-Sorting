@@ -46,18 +46,19 @@ class PrefixTree:
             if not current_node.has_child(letter):
                 return False
             current_node = current_node.get_child(letter)
-        return current.terminal
+        return current_node.terminal
 
     def insert(self, string):
         """Insert the given string into this prefix tree."""
         current_node = self.root
         for letter in string:
-            if current_node.has_child(letter) is not False:
+            if current_node.has_child(letter):
                 current_node = current_node.get_child(letter)
-                continue  # Move on to next letter
-            current_node.add_child(letter, PrefixTreeNode(letter))
-            current_node = current_node.get_child(letter)
-        current.terminal = True
+                # continue  # Move on to next letter
+            else:
+                current_node.add_child(letter, PrefixTreeNode(letter))
+                current_node = current_node.get_child(letter)
+        current_node.terminal = True
         self.size += 1
 
     def _find_node(self, string):
@@ -83,7 +84,13 @@ class PrefixTree:
         with the given prefix string."""
         # Create a list of completions in prefix tree
         completions = []
-        # TODO
+        # Early exit 1: No strings in tree
+        if self.is_empty() is True:
+            return completions
+
+        # Early exit 2: Prefix is empty
+        # if prefix == "":
+        #     return self.strings()
 
     def strings(self):
         """Return a list of all strings stored in this prefix tree."""
