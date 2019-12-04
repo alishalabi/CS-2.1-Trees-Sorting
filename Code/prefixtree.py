@@ -97,7 +97,7 @@ class PrefixTree:
         if node:
             if node.terminal:
                 completions.append(prefix)
-                self._traverse(node, prefix, completions.append)
+            self._traverse(node, prefix, completions.append)
         return completions
 
     def strings(self):
